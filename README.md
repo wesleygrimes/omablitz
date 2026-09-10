@@ -1,8 +1,8 @@
 # Omablitz
 
-80s-retro football scores for [Omarchy](https://omarchy.org) — college (FBS + FCS) and NFL.
+80s-retro football for [Omarchy](https://omarchy.org) — college (FBS + FCS) and NFL.
 
-Follow the teams you care about. A quiet pixel helmet sits on the bar year-round. On gameday, scorebug pills light up. Click in for the details.
+Follow the teams you care about. A quiet pixel helmet lives on the bar year-round. On gameday, scorebug pills light up. Click in for the rest.
 
 ## Install
 
@@ -12,33 +12,43 @@ omarchy plugin add https://github.com/wesleygrimes/omablitz.git --enable
 
 Plugins run unsandboxed inside `omarchy-shell`. Read the code before you enable it.
 
-## How it works
+## First run
 
-### First run
-On first enable, Omablitz opens a panel to pick teams. One autocomplete: logo, school/club name, conference/division (city/state when it helps disambiguate). FBS and FCS colleges plus NFL. Follow as many as you want. **Done** needs at least one team; **Skip** leaves the bar quiet until you add some.
+Omablitz opens a panel to pick teams. One autocomplete: logo, name, conference/division (city/state when names collide). College and NFL in the same search. Follow as many as you want.
 
-**Manage teams** anytime from the panel — same UI, pre-filled with who you follow.
+**Done** needs at least one team. **Skip** leaves only the helmet until you add some. **Manage teams** anytime from the panel — same picker, already filled with who you follow.
 
-### The bar
-- **Mark** — year-round 8-bit helmet glyph. Hide the whole plugin via Setup → Plugins if you want it gone.
-- **Pills** — only on gameday for followed teams that play that day.
-  - Pre-kickoff: away logo · kickoff time · home logo
-  - Live: away logo · score · home logo, thin red outline on the pill
-  - Final: same as live without the outline (slightly dimmed), then it drops
-- One pill per game even if you follow both sides.
-- Score changes: short rock/nudge and the changed number flashes once.
+## The bar
 
-Quarter, game clock, network, and deeper stats stay out of the bar.
+**Mark** — the year-round 8-bit helmet. Disable the plugin if you want it gone.
 
-### Clicks
-- **Mark** → home: followed teams (logo, name, next/live/final status). Open a team's week / next game from a row. Footer: Manage teams (and This week when it lands).
-- **Pill** → that game's card (pixel style): clock/quarter/timeouts, scorebug, pass/rush totals, penalties, stadium, local conditions. Summary stats — not play-by-play.
+**Pills** — only on gameday, and only for followed teams playing that day.
 
-### Planning
-Midweek planning lives in the panel (mark → home / schedule). The bar stays calm until gameday.
+- Before kickoff: away logo · kickoff time · home logo
+- Live: away logo · score · home logo, with a thin red outline on the pill
+- Final: same without the outline (a little dimmer), then it drops
+
+One pill per game even if you follow both sides. When the score changes, the pill gives a short rock and the changed number flashes once.
+
+Quarter, clock, network, and deeper stats stay out of the bar.
+
+## Panels
+
+**Mark → Following** — your teams as a simple list: logo, name, one next pulse (`Sat 3:30` / live score / `Final`). Quiet weeks keep the roster with a calm pulse; offseason stays calm too. If scores can’t be reached, a small status sits right of the Omablitz header — the list keeps last-known data underneath.
+
+No teams yet is the only true empty: a short line and **Add teams**.
+
+**Pill → Game** — that game’s card in pixel style: clock, quarter, timeouts, scorebug, pass/rush totals, penalties, stadium, local conditions. Summary stats, not play-by-play.
+
+Midweek planning lives in Following. The bar stays quiet until gameday.
+
+## Kickoff alert
+
+Fifteen minutes before a followed team’s kickoff, Omablitz sends one Omarchy notification: matchup, time, and network when known. Click opens the game (or Following if it isn’t live yet). Once per game; dismiss and it stays quiet. No score spam, no phone push.
 
 ## Data
-Live data comes through `omablitz.grimes.pro` (private Worker). The plugin never holds upstream API keys.
+
+Live data comes through `omablitz.grimes.pro`. The plugin never holds upstream API keys.
 
 ## License
 
