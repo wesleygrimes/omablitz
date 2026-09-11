@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  QT_QPA_PLATFORM: offscreen
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -31,10 +34,8 @@ jobs:
           qmllint --version
           qmltestrunner -help >/dev/null
           echo "QML2_IMPORT_PATH=${QML2_IMPORT_PATH:-}"
-          ls "$(dirname "$(command -v qmltestrunner)")/../qml" | head
+          test -d "${QML2_IMPORT_PATH}/QtQuick"
+          test -d "${QML2_IMPORT_PATH}/QtTest"
 
       - name: Check
-        run: |
-          # Headless Quick Test
-          export QT_QPA_PLATFORM=offscreen
-          mise run check
+        run: mise run check
