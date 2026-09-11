@@ -78,6 +78,10 @@ Details, checks, release, and marketplace listing:
 [CONTRIBUTING.md](CONTRIBUTING.md), [docs/RELEASING.md](docs/RELEASING.md),
 [docs/MARKETPLACE.md](docs/MARKETPLACE.md).
 
+CI on GitHub Actions runs `mise check` with a full Qt 6 install (unit tests +
+lint of `tests/`, marketplace readiness, shellcheck). Plugin `ui/` qmllint still
+needs Omarchy shell modules, so that part only runs on an Omarchy desktop.
+
 ## License
 
 MIT

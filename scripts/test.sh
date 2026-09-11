@@ -2,12 +2,21 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-QMLTESTRUNNER=${QMLTESTRUNNER:-/usr/lib/qt6/bin/qmltestrunner}
-[[ -x $QMLTESTRUNNER ]] || QMLTESTRUNNER=$(command -v qmltestrunner || true)
+QMLTESTRUNNER=${QMLTESTRUNNER:-}
+if [[ -z $QMLTESTRUNNER ]]; then
+  QMLTESTRUNNER=$(command -v qmltestrunner || true)
+fi
+if [[ -z ${QMLTESTRUNNER:-} || ! -x $QMLTESTRUNNER ]]; then
+  if [[ -x /usr/lib/qt6/bin/qmltestrunner ]]; then
+    QMLTESTRUNNER=/usr/lib/qt6/bin/qmltestrunner
+  fi
+fi
 [[ -n ${QMLTESTRUNNER:-} && -x $QMLTESTRUNNER ]] || {
-  echo "qmltestrunner not found" >&2
+  echo "qmltestrunner not found (install Qt 6 declarative tools)" >&2
   exit 1
 }
+
+export QT_QPA_PLATFORM=${QT_QPA_PLATFORM:-offscreen}
 
 echo "== unit =="
 "$QMLTESTRUNNER" -input tests/unit -platform offscreen

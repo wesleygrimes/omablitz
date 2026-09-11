@@ -2,10 +2,17 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-QMLLINT=${QMLLINT:-/usr/lib/qt6/bin/qmllint}
-[[ -x $QMLLINT ]] || QMLLINT=$(command -v qmllint || true)
+QMLLINT=${QMLLINT:-}
+if [[ -z $QMLLINT ]]; then
+  QMLLINT=$(command -v qmllint || true)
+fi
+if [[ -z ${QMLLINT:-} || ! -x $QMLLINT ]]; then
+  if [[ -x /usr/lib/qt6/bin/qmllint ]]; then
+    QMLLINT=/usr/lib/qt6/bin/qmllint
+  fi
+fi
 [[ -n ${QMLLINT:-} && -x $QMLLINT ]] || {
-  echo "qmllint not found" >&2
+  echo "qmllint not found (install Qt 6 declarative tools)" >&2
   exit 1
 }
 
@@ -15,8 +22,7 @@ else
   bash scripts/validate-manifest.sh
 fi
 
-# ui/ imports qs.* and Quickshell — only lint it when the Omarchy shell modules
-# are on disk. CI / plain Ubuntu cannot resolve those imports.
+# ui/ imports qs.* and Quickshell — only lint when Omarchy shell modules exist.
 mapfile -t qml_files < <(find ui -name '*.qml' | sort)
 if (( ${#qml_files[@]} )); then
   shell_qml=${OMARCHY_PATH:-/usr/share/omarchy}/shell
@@ -34,12 +40,10 @@ if (( ${#qml_files[@]} )); then
   fi
 fi
 
-# Pure tests should resolve when Qt QML modules are installed.
+# Unit-test QML must lint cleanly under stock Qt (no Omarchy imports).
 mapfile -t test_qml < <(find tests -name '*.qml' 2>/dev/null | sort)
 if (( ${#test_qml[@]} )); then
-  if ! "$QMLLINT" "${test_qml[@]}"; then
-    printf 'warn: qmllint could not analyze tests (Qt QML imports unresolved); continuing\n' >&2
-  fi
+  "$QMLLINT" "${test_qml[@]}"
 fi
 
 shellcheck -x scripts/*.sh tests/integration/*.sh

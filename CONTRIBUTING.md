@@ -24,8 +24,9 @@ you edit `ui/`, `lib/`, or `manifest.json`.
 The plugin reads `OMABLITZ_API_BASE` (mise sets it to the mock). Production
 default is `https://omablitz.grimes.pro`.
 
-Before every commit: `mise check`. That includes marketplace readiness
-([docs/MARKETPLACE.md](docs/MARKETPLACE.md)), lint, and tests. Releases:
+Before every commit: `mise check`. CI runs the same command on Ubuntu with
+Qt 6 from `install-qt-action` (so `qmltestrunner` / `qmllint` work off an
+Omarchy box). `ui/` qmllint still needs Omarchy shell modules locally.
 [docs/RELEASING.md](docs/RELEASING.md). Listing on
 [plugins.omarchy.org](https://plugins.omarchy.org/) is a first-class goal — keep
 Install/Remove, dependency docs, and the security baseline constraints intact

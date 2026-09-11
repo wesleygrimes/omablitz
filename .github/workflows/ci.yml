@@ -16,20 +16,25 @@ jobs:
           install: true
           cache: true
 
-      - name: Install Qt (qmltestrunner / qmllint)
+      # Official Qt builds — apt Qt on Ubuntu is incomplete for qmllint/qmltestrunner.
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.8.3"
+          cache: true
+          install-deps: true
+
+      - name: Verify Qt tools
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            qt6-declarative-dev \
-            qml6-module-qtquick \
-            qml6-module-qtqml \
-            qml6-module-qttest
-          multiarch=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
-          echo "QML2_IMPORT_PATH=/usr/lib/${multiarch}/qt6/qml" >> "$GITHUB_ENV"
-          echo "/usr/lib/qt6/bin" >> "$GITHUB_PATH"
-          ls "/usr/lib/${multiarch}/qt6/qml" | head
-          command -v qmllint qmltestrunner
-          qmllint --version || true
+          command -v qmllint
+          command -v qmltestrunner
+          qmllint --version
+          qmltestrunner -help >/dev/null
+          echo "QML2_IMPORT_PATH=${QML2_IMPORT_PATH:-}"
+          ls "$(dirname "$(command -v qmltestrunner)")/../qml" | head
 
       - name: Check
-        run: mise run check
+        run: |
+          # Headless Quick Test
+          export QT_QPA_PLATFORM=offscreen
+          mise run check
