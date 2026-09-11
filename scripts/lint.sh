@@ -15,22 +15,26 @@ else
   bash scripts/validate-manifest.sh
 fi
 
-# Plugin QML imports qs.* / Quickshell which qmllint cannot resolve outside the
-# shell. Category names vary by Qt version — only pass flags this binary knows.
-help=$("$QMLLINT" --help 2>&1 || true)
-qml_disable=()
-for cat in import unqualified missing-property missing-type uncreatable-type; do
-  if grep -qE -- "--${cat}( |$)" <<<"$help"; then
-    qml_disable+=(--"$cat" disable)
-  fi
-done
-
+# ui/ imports qs.* and Quickshell — only lint it when the Omarchy shell modules
+# are on disk. CI / plain Ubuntu cannot resolve those imports.
 mapfile -t qml_files < <(find ui -name '*.qml' | sort)
 if (( ${#qml_files[@]} )); then
-  "$QMLLINT" "${qml_disable[@]}" "${qml_files[@]}"
+  shell_qml=${OMARCHY_PATH:-/usr/share/omarchy}/shell
+  if [[ -d $shell_qml/Ui && -d $shell_qml/Commons ]]; then
+    help=$("$QMLLINT" --help 2>&1 || true)
+    qml_disable=()
+    for cat in import unqualified missing-property missing-type uncreatable-type; do
+      if grep -qE -- "--${cat}( |$)" <<<"$help"; then
+        qml_disable+=(--"$cat" disable)
+      fi
+    done
+    "$QMLLINT" -I "$shell_qml" "${qml_disable[@]}" "${qml_files[@]}"
+  else
+    printf 'skip ui qmllint (no Omarchy shell modules at %s)\n' "$shell_qml"
+  fi
 fi
 
-# Pure lib / tests should resolve cleanly (no Omarchy imports).
+# Pure tests should resolve cleanly (no Omarchy imports).
 mapfile -t test_qml < <(find tests -name '*.qml' 2>/dev/null | sort)
 if (( ${#test_qml[@]} )); then
   "$QMLLINT" "${test_qml[@]}"
