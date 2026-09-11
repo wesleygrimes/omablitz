@@ -3,6 +3,11 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 QMLLINT=${QMLLINT:-/usr/lib/qt6/bin/qmllint}
+[[ -x $QMLLINT ]] || QMLLINT=$(command -v qmllint || true)
+[[ -n ${QMLLINT:-} && -x $QMLLINT ]] || {
+  echo "qmllint not found" >&2
+  exit 1
+}
 
 if command -v omarchy >/dev/null 2>&1; then
   omarchy plugin validate .
@@ -11,16 +16,18 @@ else
 fi
 
 # Plugin QML imports qs.* / Quickshell which qmllint cannot resolve outside the
-# shell — disable those categories and still catch syntax / smell issues.
+# shell. Category names vary by Qt version — only pass flags this binary knows.
+help=$("$QMLLINT" --help 2>&1 || true)
+qml_disable=()
+for cat in import unqualified missing-property missing-type uncreatable-type; do
+  if grep -qE -- "--${cat}( |$)" <<<"$help"; then
+    qml_disable+=(--"$cat" disable)
+  fi
+done
+
 mapfile -t qml_files < <(find ui -name '*.qml' | sort)
 if (( ${#qml_files[@]} )); then
-  "$QMLLINT" \
-    --import disable \
-    --unqualified disable \
-    --missing-property disable \
-    --missing-type disable \
-    --uncreatable-type disable \
-    "${qml_files[@]}"
+  "$QMLLINT" "${qml_disable[@]}" "${qml_files[@]}"
 fi
 
 # Pure lib / tests should resolve cleanly (no Omarchy imports).
