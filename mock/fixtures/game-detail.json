@@ -1,0 +1,33 @@
+{
+  "id": "nfl-20260913-atl-no",
+  "league": "nfl",
+  "status": "live",
+  "kickoff": "2026-09-13T17:00:00Z",
+  "network": "FOX",
+  "quarter": 2,
+  "clock": "8:42",
+  "away": {
+    "id": "nfl-atl",
+    "name": "Atlanta Falcons",
+    "abbr": "ATL",
+    "score": 10,
+    "timeouts": 2,
+    "logo": "/logos/atl.png",
+    "passingYards": 142,
+    "rushingYards": 58,
+    "penalties": 3
+  },
+  "home": {
+    "id": "nfl-no",
+    "name": "New Orleans Saints",
+    "abbr": "NO",
+    "score": 14,
+    "timeouts": 3,
+    "logo": "/logos/no.png",
+    "passingYards": 167,
+    "rushingYards": 71,
+    "penalties": 2
+  },
+  "stadium": "Caesars Superdome",
+  "conditions": { "tempF": 78, "summary": "Dome" }
+}

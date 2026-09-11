@@ -1,0 +1,57 @@
+# Omablitz developer toolchain. `mise install` gets the tools; `mise tasks` lists jobs.
+
+[tools]
+shellcheck = "0.11"
+jq = "1.8"
+
+[env]
+_.path = ["/usr/lib/qt6/bin"]
+OMABLITZ_API_BASE = "http://127.0.0.1:8787"
+
+[tasks.setup]
+description = "Check desktop deps (omarchy-shell, qmllint, inotifywait)"
+run = "bash scripts/setup.sh"
+
+[tasks.plugin-link]
+description = "Symlink this checkout into Omarchy plugins and enable it"
+run = "bash scripts/link-plugin.sh"
+
+[tasks.plugin-unlink]
+description = "Restore the installed plugin clone (if any)"
+run = "bash scripts/link-plugin.sh --unlink"
+
+[tasks.mock]
+description = "Serve mock/fixtures on :8787 (Ctrl-C to stop)"
+run = "python3 scripts/mock-server.py"
+
+[tasks.watch]
+description = "On ui/lib/manifest changes, rescanPlugins (needs plugin-link)"
+run = "bash scripts/watch.sh"
+
+[tasks.dev]
+description = "Link plugin, run mock API + file watcher together"
+run = "bash scripts/dev.sh"
+
+[tasks.format]
+description = "Format QML in place"
+run = "bash scripts/format.sh"
+
+[tasks.lint]
+description = "Validate manifest, qmllint, shellcheck"
+run = "bash scripts/lint.sh"
+
+[tasks.test]
+description = "Unit (qmltestrunner) + integration tests"
+run = "bash scripts/test.sh"
+
+[tasks.marketplace]
+description = "Omarchy Plugins directory readiness (README, license, baseline smells)"
+run = "bash scripts/marketplace-check.sh"
+
+[tasks.check]
+description = "marketplace + lint + test — run before committing"
+depends = ["marketplace", "lint", "test"]
+
+[tasks.release]
+description = "Tag v<manifest.version> and open a draft GitHub Release"
+run = "bash scripts/release.sh"

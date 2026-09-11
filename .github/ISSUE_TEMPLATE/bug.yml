@@ -1,0 +1,64 @@
+name: Bug report
+description: Something in the bar, panel, or data path is wrong
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Fill in what you can — Omarchy version and plugin commit help a lot.
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: What you saw (bar, panel, notification, install).
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: false
+  - type: input
+    id: omarchy
+    attributes:
+      label: Omarchy version
+      description: Output of `omarchy-version` (or approximate).
+      placeholder: e.g. 4.x
+    validations:
+      required: false
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin commit
+      description: `git -C ~/.config/omarchy/plugins/pro.grimes.omablitz rev-parse --short HEAD`
+    validations:
+      required: false
+  - type: dropdown
+    id: api
+    attributes:
+      label: Data path
+      options:
+        - Production (omablitz.grimes.pro)
+        - Local mock (OMABLITZ_API_BASE)
+        - Not sure / N/A
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Relevant `qs log` / shell output, or a short capture.
+    validations:
+      required: false

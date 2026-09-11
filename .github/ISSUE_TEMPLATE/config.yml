@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Omarchy Plugins directory
+    url: https://plugins.omarchy.org/
+    about: Listing and discovery for Omarchy Quattro plugins.
+  - name: Omarchy
+    url: https://omarchy.org/
+    about: The Omarchy desktop itself (not this plugin).

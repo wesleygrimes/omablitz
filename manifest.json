@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "pro.grimes.omablitz",
+  "name": "Omablitz",
+  "version": "0.0.1",
+  "author": "Wes Grimes",
+  "license": "MIT",
+  "homepage": "https://github.com/wesleygrimes/omablitz",
+  "description": "Follow college and NFL teams on Omarchy",
+  "kinds": [
+    "bar-widget",
+    "panel"
+  ],
+  "entryPoints": {
+    "barWidget": "ui/Bar.qml",
+    "panel": "ui/Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Omablitz",
+    "description": "Mark and gameday scorebugs",
+    "category": "Sports",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}

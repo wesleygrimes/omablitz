@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-12",
+  "games": [
+    {
+      "id": "cfb-20260912-aub-uga",
+      "league": "cfb",
+      "status": "scheduled",
+      "kickoff": "2026-09-12T19:30:00Z",
+      "network": "CBS",
+      "away": { "id": "cfb-aub", "abbr": "AUB", "score": null, "logo": "/logos/aub.png" },
+      "home": { "id": "cfb-uga", "abbr": "UGA", "score": null, "logo": "/logos/uga.png" }
+    },
+    {
+      "id": "nfl-20260913-atl-no",
+      "league": "nfl",
+      "status": "live",
+      "kickoff": "2026-09-13T17:00:00Z",
+      "network": "FOX",
+      "quarter": 2,
+      "clock": "8:42",
+      "away": { "id": "nfl-atl", "abbr": "ATL", "score": 10, "logo": "/logos/atl.png" },
+      "home": { "id": "nfl-no", "abbr": "NO", "score": 14, "logo": "/logos/no.png" }
+    },
+    {
+      "id": "cfb-20260912-final-demo",
+      "league": "cfb",
+      "status": "final",
+      "kickoff": "2026-09-12T16:00:00Z",
+      "network": "ESPN",
+      "away": { "id": "cfb-aub", "abbr": "AUB", "score": 21, "logo": "/logos/aub.png" },
+      "home": { "id": "cfb-uga", "abbr": "UGA", "score": 28, "logo": "/logos/uga.png" }
+    }
+  ]
+}

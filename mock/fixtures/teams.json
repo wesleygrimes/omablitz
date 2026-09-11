@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cfb-uga",
+    "name": "Georgia Bulldogs",
+    "abbr": "UGA",
+    "league": "cfb",
+    "conference": "SEC",
+    "location": "Athens, GA",
+    "logo": "/logos/uga.png"
+  },
+  {
+    "id": "cfb-aub",
+    "name": "Auburn Tigers",
+    "abbr": "AUB",
+    "league": "cfb",
+    "conference": "SEC",
+    "location": "Auburn, AL",
+    "logo": "/logos/aub.png"
+  },
+  {
+    "id": "nfl-atl",
+    "name": "Atlanta Falcons",
+    "abbr": "ATL",
+    "league": "nfl",
+    "conference": "NFC South",
+    "location": "Atlanta, GA",
+    "logo": "/logos/atl.png"
+  },
+  {
+    "id": "nfl-no",
+    "name": "New Orleans Saints",
+    "abbr": "NO",
+    "league": "nfl",
+    "conference": "NFC South",
+    "location": "New Orleans, LA",
+    "logo": "/logos/no.png"
+  }
+]

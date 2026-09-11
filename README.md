@@ -1,8 +1,8 @@
 # Omablitz
 
-80s-retro football for [Omarchy](https://omarchy.org) — college (FBS + FCS) and NFL.
+Follow your college and NFL teams on [Omarchy](https://omarchy.org).
 
-Follow the teams you care about. A quiet pixel helmet lives on the bar year-round. On gameday, scorebug pills light up. Click in for the rest.
+A quiet mark lives on the bar year-round. On gameday, scorebug pills light up. Click in for the rest.
 
 ## Install
 
@@ -10,7 +10,19 @@ Follow the teams you care about. A quiet pixel helmet lives on the bar year-roun
 omarchy plugin add https://github.com/wesleygrimes/omablitz.git --enable
 ```
 
-Plugins run unsandboxed inside `omarchy-shell`. Read the code before you enable it.
+This clones into `~/.config/omarchy/plugins/pro.grimes.omablitz`. Plugins run
+**unsandboxed** inside `omarchy-shell`. Read the code before you enable it.
+Listing on [plugins.omarchy.org](https://plugins.omarchy.org/) is not a security review.
+
+## Remove
+
+```bash
+omarchy plugin remove pro.grimes.omablitz
+```
+
+Followed-team preferences (when added) will live under Omablitz’s own state
+directory — remove will document wiping that path once it exists. The plugin
+does not rewrite your Omarchy config beyond normal enable/disable.
 
 ## First run
 
@@ -20,7 +32,7 @@ Omablitz opens a panel to pick teams. One autocomplete: logo, name, conference/d
 
 ## The bar
 
-**Mark** — the year-round 8-bit helmet. Disable the plugin if you want it gone.
+**Mark** — the year-round helmet on the bar. Disable the plugin if you want it gone.
 
 **Pills** — only on gameday, and only for followed teams playing that day.
 
@@ -38,7 +50,7 @@ Quarter, clock, network, and deeper stats stay out of the bar.
 
 No teams yet is the only true empty: a short line and **Add teams**.
 
-**Pill → Game** — that game’s card in pixel style: clock, quarter, timeouts, scorebug, pass/rush totals, penalties, stadium, local conditions. Summary stats, not play-by-play.
+**Pill → Game** — that game’s card: clock, quarter, timeouts, scorebug, pass/rush totals, penalties, stadium, local conditions. Summary stats, not play-by-play.
 
 Midweek planning lives in Following. The bar stays quiet until gameday.
 
@@ -46,9 +58,25 @@ Midweek planning lives in Following. The bar stays quiet until gameday.
 
 Fifteen minutes before a followed team’s kickoff, Omablitz sends one Omarchy notification: matchup, time, and network when known. Click opens the game (or Following if it isn’t live yet). Once per game; dismiss and it stays quiet. No score spam, no phone push.
 
-## Data
+## Data and dependencies
 
-Live data comes through `omablitz.grimes.pro`. The plugin never holds upstream API keys.
+- **Scores / schedules:** `https://omablitz.grimes.pro` (HTTPS). The plugin never
+  holds upstream API keys; that host is the only live data plane.
+- **Desktop:** Omarchy Quattro + `omarchy-shell` (Quickshell). No extra packages,
+  no sudo, no bundled native binaries.
+
+Local development can point at a mock API via `OMABLITZ_API_BASE` (see
+[CONTRIBUTING.md](CONTRIBUTING.md)).
+
+## Develop
+
+```bash
+mise install && mise setup && mise dev
+```
+
+Details, checks, release, and marketplace listing:
+[CONTRIBUTING.md](CONTRIBUTING.md), [docs/RELEASING.md](docs/RELEASING.md),
+[docs/MARKETPLACE.md](docs/MARKETPLACE.md).
 
 ## License
 

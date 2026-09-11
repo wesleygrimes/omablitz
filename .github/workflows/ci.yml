@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+
+      - name: Install Qt (qmltestrunner / qmllint)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qt6-declarative-dev qml6-module-qttest
+
+      - name: Check
+        run: |
+          export PATH="/usr/lib/qt6/bin:$PATH"
+          mise run check

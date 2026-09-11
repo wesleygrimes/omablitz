@@ -1,0 +1,7 @@
+*.qmlc
+*.jsc
+*.qmlls.ini
+.qmllint.ini
+.qmlformat.ini
+.agents/
+.mise/
