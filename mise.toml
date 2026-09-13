@@ -56,3 +56,11 @@ depends = ["marketplace", "lint", "test"]
 [tasks.release]
 description = "Tag v<manifest.version> and open a draft GitHub Release"
 run = "bash scripts/release.sh"
+
+[tasks.agents-link]
+description = "Symlink the sibling wesleygrimes/agents overlay into this gitignored tree"
+run = "bash ../agents/scripts/link.sh"
+
+[tasks.agents-unlink]
+description = "Remove the wesleygrimes/agents overlay from this checkout"
+run = "bash ../agents/scripts/unlink.sh"

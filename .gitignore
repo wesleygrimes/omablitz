@@ -5,3 +5,11 @@
 .qmlformat.ini
 .agents/
 .mise/
+
+# Installed from the sibling wesleygrimes/agents monorepo. Marketplace
+# review treats agent-control files as a listing blocker.
+.cursor/
+AGENTS.md
+CLAUDE.md
+.cursorrules
+*.mdc

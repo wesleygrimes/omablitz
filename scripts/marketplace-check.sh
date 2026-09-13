@@ -41,7 +41,7 @@ ok "dependencies + unsandboxed warning"
 # Published tree must not contain symlinks (dev link is outside the repo).
 while IFS= read -r -d '' link; do
   die "tracked symlink not allowed in plugin repo: $link"
-done < <(find . -type l -not -path './.git/*' -print0)
+done < <(find . -type l -not -path './.git/*' -not -path './.cursor/*' -print0)
 ok "no symlinks in tree"
 
 # Automated Security Baseline smell checks (static; not a full audit).
